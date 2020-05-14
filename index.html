@@ -5,7 +5,7 @@
 <button onclick="update()">לחץ</button>
 
 <br>
-<canvas id="graph" width="600" height="600" onmousemove="move(event)" style="border:1px solid #000000;"></canvas>
+<canvas id="graph" width="600" height="600" onmousemove="move(event)" onclick="move(event)" style="border:1px solid #000000;"></canvas>
 <br>
 <div id="write"></div>
 </body>
@@ -58,10 +58,11 @@
  }
  
  function move(e){
-	var x= e.clientX;
-	var y= e.clientY;
+	var x = e.offsetX;
+	var y = e.offsetY;
+	console.log("x: "+x+" y: "+y+" can: "+can.height);
 	for(var i =0;i<1000;i++){
-	if(Math.abs(x-Math.round(i*0.6))<2&&Math.abs(y-(can.height-Math.round(arr[i]*600)))<2){
+	if(Math.abs(x-Math.round(i*0.6))<4&&Math.abs(y-(can.height-arr[i]*600))<4){
 			console.log("Mouse on")
 			    document.getElementById("write").innerHTML = "p: "+i/1000+"<br> אחוזי הצלחה:"+arr[i];
 		}
