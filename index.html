@@ -10,7 +10,32 @@
  var suc = document.getElementById("suc").value;
   var can= document.getElementById("graph");
   var ctx = can.getContext("2d");
-  ctx.moveTo(0, 0);
-ctx.lineTo(200, 100);
-ctx.stroke();
+ ctx.font = "30px Arial";
+ctx.fillText("Hello World", 10, 50);
+
+ input.addEventListener('tries', update);
+ input.addEventListener('suc', update);
+ function update (){
+   var tries = document.getElementById("tries").value;
+ var suc = document.getElementById("suc").value;
+  var arr = [1000];
+  var bin= factorial(tries)/(factorial(suc)*factorial(tries-suc));
+  var can= document.getElementById("graph");
+  var ctx = can.getContext("2d");
+  arr[0]=bin*Math.pow(0,suc)*Math.pow((1-0),(tries-suc));
+  for(var i=0;i<arr.length;i++){
+   arr[i]=bin*Math.pow(i/1000,suc)*Math.pow((1-(i/1000)),(tries-suc));
+   ctx.moveTo(i*6,arr[i]*6);
+   ctx.lineTo(i*6+1,arr[i]*6+1);
+   ctx.stroke();
+  }
+ }
+  var f = [];
+function factorial (n) {
+  if (n == 0 || n == 1)
+    return 1;
+  if (f[n] > 0)
+    return f[n];
+  return f[n] = factorial(n-1) * n;
+} 
 </script>
