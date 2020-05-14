@@ -2,6 +2,15 @@
 <body>
 ניסיונות:  <input type="text" id="tries" name="tries"><br><br>
 הצלחות: <input type="text" id="suc" name="suc"><br><br>
-<canvas id="graph" width="600" height="600"></canvas>
+<canvas id="graph" width="600" height="600" style="border:1px solid #000000;"></canvas>
 </body>
 </html>
+<script>
+ var tries = document.getElementById("tries").value;
+ var suc = document.getElementById("suc").value;
+  var can= document.getElementById("graph");
+  var ctx = can.getContext("2d");
+  ctx.moveTo(0, 0);
+ctx.lineTo(200, 100);
+ctx.stroke();
+</script>
