@@ -3,6 +3,8 @@
 ניסיונות:  <input type="text" id="tries" name="tries"><br>
 הצלחות: <input type="text" id="suc" name="suc"><br>
 <button onclick="update()">לחץ</button>
+<div id="middle">אמצע האינטגרל:</div>
+<div id="top">שיא הגרף:</div>
 <div id="write">p:<br>אחוזי הצלחה:</div>
 <br>
 <canvas id="graph" width="600" height="600" onmousemove="move(event)" onclick="move(event)" style="border:1px solid #000000;"></canvas>
@@ -25,10 +27,22 @@
   ctx.moveTo(0,can.height);
   arr.push(bin*Math.pow(0,suc)*Math.pow((1-(0)),(tries-suc)));
   ctx.font="10px Arial";
-  for(var i=0.001;i<=1;i+=0.001){
-   arr.push(bin*Math.pow(i,suc)*Math.pow((1-i),(tries-suc)));
-   ctx.lineTo(Math.round(i*600),can.height-Math.round(arr[Math.round(i*1000)]*600));
-   console.log(""+i+"   "+arr[Math.round(i*1000)]);
+  var sum= arr[0];
+  var middle;
+  var top=0;
+  for(var i=1;i<=1000;i+=1){
+   arr.push(bin*Math.pow(i/1000,suc)*Math.pow((1-i/1000),(tries-suc)));
+   ctx.lineTo(i*0.6,can.height-Math.round(arr[i]*600));
+   if(arr[top]<arr[i])top=i;
+   console.log(""+i+"   "+arr[i]);
+   sum+=arr[i];
+   console.log("sum: "+sum);
+  }
+  middle=0;
+  var i;
+  for(i=0;i<arr.length&&middle<sum/2;i++){
+	middle+=arr[i];
+	console.log(i);
   }
   ctx.fillText("0",0, 30);
   ctx.fillText("10",60, 30);
@@ -51,6 +65,13 @@
   ctx.fillText("80",570, can.height-480);
   ctx.fillText("90",570, can.height-540);
   ctx.stroke();
+  ctx.beginPath();
+  ctx.strokeStyle= "grey";
+  ctx.moveTo(i*0.6,can.height);
+  ctx.lineTo(i*0.6,0);
+  ctx.stroke();
+  document.getElementById("middle").innerHTML = "אמצע האינטגרל: "+i/1000;
+  document.getElementById("top").innerHTML = "שיא הגרף: "+top/1000;
  }
  
  function move(e){
