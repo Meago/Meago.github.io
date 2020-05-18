@@ -52,21 +52,21 @@ function update(){
 							temp="";
 							count[j]=place;
 							j++;
-							place=0;
+							place=1;
 							}
 							console.log("השלמות"+i+j);
 							v.push(parts[i]);
 							count[j]=1;
 							j++;
 							temp="";
-							place=0;
+							place=1;
 							var k;
 							for(k=1;k*target<parts[i].length;k++){
 								v.push("השלמות");
 								count[j]=0;
 								j++;
 							}
-							spare+=target*k-part[i].length;
+							spare+=target*k-parts[i].length;
 						}else
 						if(target>spare&&(temp==""||Math.abs(target-temp.length+spare)>Math.abs(target-parts[i].length-temp.length+spare))){
 							temp+=parts[i];
@@ -76,7 +76,7 @@ function update(){
 							spare=target+spare-temp.length;
 							temp="";
 							count[j]=place;
-							place=0;
+							place=1;
 							j++;
 						}
 					}else{
@@ -87,14 +87,14 @@ function update(){
 							temp="";
 							count[j]=place;
 							j++;
-							place=0;
+							place=1;
 							}
 							console.log("השלמות"+i+j);
 							v.push(parts[i]);
 							count[j]=1;
 							j++;
 							temp="";
-							place=0;
+							place=1;
 							for(var k=1;k*target<parts[i].length;k++){
 								v.push("השלמות");
 								count[j]=0;
@@ -108,11 +108,13 @@ function update(){
 							v.push(temp);
 							temp="";
 							count[j]=place;
-							place=0;
+							place=1;
 							j++;
 						}
 					}
 					}
+					v.push(temp);
+					count[j]=place;
 					console.log(v.length+"  "+tparts+" "+target);
 					if((Math.abs(tparts-v.length)<Math.abs(tparts-last)||tries<100)&&v.length!=tparts){
 					tries++;
@@ -124,7 +126,7 @@ function update(){
 				output+="\nפרקים: "+parts.length;
 				output+="\nחלקים: "+v.length;
 				output+="\nאורך פרק ממוצע (באותיות): "+target;
-				for(var i=0;i<j;i++){
+				for(var i=0;i<v.length;i++){
 					if(v[i].length>25)
 					output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,25)+" אורך הקטע: "+v[i].length;
 					else output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,v[i].length)+" אורך הקטע: "+v[i].length;
