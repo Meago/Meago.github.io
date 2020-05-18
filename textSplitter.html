@@ -61,7 +61,7 @@ function update(){
 							temp="";
 							place=1;
 							var k;
-							for(k=1;k*target<parts[i].length;k++){
+							for(k=2;k*target<parts[i].length;k++){
 								v.push("השלמות");
 								count[j]=0;
 								j++;
@@ -95,7 +95,7 @@ function update(){
 							j++;
 							temp="";
 							place=1;
-							for(var k=1;k*target<parts[i].length;k++){
+							for(var k=2;k*target<parts[i].length;k++){
 								v.push("השלמות");
 								count[j]=0;
 								j++;
@@ -127,8 +127,8 @@ function update(){
 				output+="\nחלקים: "+v.length;
 				output+="\nאורך פרק ממוצע (באותיות): "+target;
 				for(var i=0;i<v.length;i++){
-					if(v[i].length>25)
-					output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,25)+" אורך הקטע: "+v[i].length;
+					if(v[i].length>40)
+					output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,40)+" אורך הקטע: "+v[i].length;
 					else output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,v[i].length)+" אורך הקטע: "+v[i].length;
 					}
 					document.getElementById("output").value=output;
