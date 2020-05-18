@@ -11,6 +11,11 @@
 כמות חלקים:<br>
 <input type="text" id="num">
 <br>
+<br>
+איזון בין ימים סמוכים:<br> <input type="checkbox" id="spare" value="איזון בין ימים סמוכים: ">
+<br>
+ימי השלמות: <br> <input type="checkbox" id="complete">
+<br>
 <button onclick="update()">מצא חלוקה</button>   
 <br>
 <br>
@@ -23,6 +28,7 @@ function update(){
 		var txt = document.getElementById("input").value;
 			var tparts = document.getElementById("num").value;
 			var target = txt.length/tparts;
+			var com=document.getElementById("complete").checked;
 			var parts = txt.split(document.getElementById("split").value);
 			if(tparts>parts.length){
 				document.getElementById("output").value="יש פחות מדי חלקים בטקסט, אנא הכנס מספר קטן יותר של חלקים";
@@ -38,7 +44,30 @@ function update(){
 					var place = 0;
 					var temp = "";
 					var spare=0;
+					if(document.getElementById("spare").checked)
 					for(var i=0;i<parts.length;i++){
+					if(parts[i].length+spare>target*2&&com){
+						if(temp!=""){
+							v.push(temp);
+							temp="";
+							count[j]=place;
+							j++;
+							place=0;
+							}
+							console.log("השלמות"+i+j);
+							v.push(parts[i]);
+							count[j]=1;
+							j++;
+							temp="";
+							place=0;
+							var k;
+							for(k=1;k*target<parts[i].length;k++){
+								v.push("השלמות");
+								count[j]=0;
+								j++;
+							}
+							spare+=target*k-part[i].length;
+						}else
 						if(target>spare&&(temp==""||Math.abs(target-temp.length+spare)>Math.abs(target-parts[i].length-temp.length+spare))){
 							temp+=parts[i];
 							place++;
@@ -50,6 +79,39 @@ function update(){
 							place=0;
 							j++;
 						}
+					}else{
+					for(var i=0;i<parts.length;i++){
+						if(parts[i].length>target*2&&com){
+						if(temp!=""){
+							v.push(temp);
+							temp="";
+							count[j]=place;
+							j++;
+							place=0;
+							}
+							console.log("השלמות"+i+j);
+							v.push(parts[i]);
+							count[j]=1;
+							j++;
+							temp="";
+							place=0;
+							for(var k=1;k*target<parts[i].length;k++){
+								v.push("השלמות");
+								count[j]=0;
+								j++;
+							}
+						}else
+						if(temp==""||Math.abs(target-temp.length)>Math.abs(target-parts[i].length-temp.length)){
+							temp+=parts[i];
+							place++;
+						}else{
+							v.push(temp);
+							temp="";
+							count[j]=place;
+							place=0;
+							j++;
+						}
+					}
 					}
 					console.log(v.length+"  "+tparts+" "+target);
 					if((Math.abs(tparts-v.length)<Math.abs(tparts-last)||tries<100)&&v.length!=tparts){
