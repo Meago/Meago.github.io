@@ -1,0 +1,71 @@
+<html>
+<body align="right" dir="rtl" style="font-family:'Narkisim'">
+<div id="problem"></div>
+טקסט לפיצול:
+<textarea id="input" rows="20" cols="100" dirname="rtl"></textarea>        
+<button onclick="update()">מצא חלוקה</button>     
+חלוקה:
+<textarea id="output" rows="35" cols="50" dir="rtl" dirname="rtl"></textarea>
+<br>
+<br>
+טקסט מפריד:
+<textarea id="split" rows="3" cols="50"></textarea>
+<br>
+<br>
+כמות חלקים:
+<input type="text" id="num">
+<br>
+</body>
+</html>
+<script>
+function update(){
+		var txt = document.getElementById("input").value;
+			var tparts = document.getElementById("num").value;
+			var target = txt.length/tparts;
+			var parts = txt.split(document.getElementById("split").value);
+			if(tparts>parts.length){	
+				document.getElementById("problem").innerHTML= "יש פחות מדי חלקים בטקסט, אנא הכנס מספר קטן יותר של חלקים:";
+			}else{
+				var v =[];
+				var j=0;
+				var count= [parts.length];
+				var last=-1;
+				for(;v.length!=tparts;v= []){
+					count= [parts.length];
+					j = 0;
+					var place = 0;
+					var temp = "";
+					var spare=0;
+					for(var i=0;i<parts.length;i++){
+						if(target>spare&&(temp==""||Math.abs(target-temp.length+spare)>Math.abs(target-parts[i].length-temp.length+spare))){
+							temp+=parts[i];
+							place++;
+						}else{
+							v.push(temp);
+							spare=target+spare-temp.length;
+							temp="";
+							count[j]=place;
+							place=0;
+							j++;
+						}
+					}
+					console.log(v.length+"  "+tparts+" "+target);
+					if(Math.abs(tparts-v.length)<Math.abs(tparts-last)&&v.length!=tparts){
+						target=target*(v.length/tparts);
+						last=v.length;
+					}else break;
+				}
+				var output="";
+				output+="\nפרקים: "+parts.length;
+				output+="\nחלקים: "+v.length;
+				output+="\nאורך פרק ממוצע (באותיות): "+target;
+				for(var i=0;i<j;i++){
+					if(v[i].length>25)
+					output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,25)+" אורך הקטע: "+v[i].length;
+					else output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,v[i].length)+" אורך הקטע: "+v[i].length;
+					}
+					document.getElementById("output").value=output;
+			}
+	}
+ 
+</script>
