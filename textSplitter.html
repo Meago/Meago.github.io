@@ -1,20 +1,21 @@
 <html>
-<body align="right" dir="rtl" style="font-family:'Narkisim'">
-<div id="problem"></div>
-טקסט לפיצול:
-<textarea id="input" rows="20" cols="100" dirname="rtl"></textarea>        
-<button onclick="update()">מצא חלוקה</button>     
-חלוקה:
-<textarea id="output" rows="35" cols="50" dir="rtl" dirname="rtl"></textarea>
+<body align="center" dir="rtl" style="font-family:'Narkisim'">
+טקסט לפיצול:<br>
+<textarea id="input" rows="15" cols="50" dirname="rtl"></textarea>          
 <br>
 <br>
-טקסט מפריד:
+טקסט מפריד:<br>
 <textarea id="split" rows="3" cols="50"></textarea>
 <br>
 <br>
-כמות חלקים:
+כמות חלקים:<br>
 <input type="text" id="num">
 <br>
+<button onclick="update()">מצא חלוקה</button>   
+<br>
+<br>
+חלוקה:<br>
+<textarea cols="30" id="output" rows="3" dir="rtl" dirname="rtl" readonly="true"></textarea>
 </body>
 </html>
 <script>
@@ -23,13 +24,14 @@ function update(){
 			var tparts = document.getElementById("num").value;
 			var target = txt.length/tparts;
 			var parts = txt.split(document.getElementById("split").value);
-			if(tparts>parts.length){	
-				document.getElementById("problem").innerHTML= "יש פחות מדי חלקים בטקסט, אנא הכנס מספר קטן יותר של חלקים:";
+			if(tparts>parts.length){
+				document.getElementById("output").value="יש פחות מדי חלקים בטקסט, אנא הכנס מספר קטן יותר של חלקים";
 			}else{
 				var v =[];
 				var j=0;
 				var count= [parts.length];
 				var last=-1;
+				var tries=0;
 				for(;v.length!=tparts;v= []){
 					count= [parts.length];
 					j = 0;
@@ -50,7 +52,8 @@ function update(){
 						}
 					}
 					console.log(v.length+"  "+tparts+" "+target);
-					if(Math.abs(tparts-v.length)<Math.abs(tparts-last)&&v.length!=tparts){
+					if((Math.abs(tparts-v.length)<Math.abs(tparts-last)||tries<100)&&v.length!=tparts){
+					tries++;
 						target=target*(v.length/tparts);
 						last=v.length;
 					}else break;
@@ -65,6 +68,8 @@ function update(){
 					else output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,v[i].length)+" אורך הקטע: "+v[i].length;
 					}
 					document.getElementById("output").value=output;
+					document.getElementById("output").cols="100";
+					document.getElementById("output").rows="30";
 			}
 	}
  
