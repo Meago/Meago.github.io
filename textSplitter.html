@@ -125,11 +125,11 @@ function update(){
 				var output="";
 				output+="\nפרקים: "+parts.length;
 				output+="\nחלקים: "+v.length;
-				output+="\nאורך פרק ממוצע (באותיות): "+target;
+				output+="\nאורך פרק ממוצע (באותיות): "+target+"\n\n\n\n";
 				for(var i=0;i<v.length;i++){
 					if(v[i].length>40)
-					output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,40)+" אורך הקטע: "+v[i].length;
-					else output+="\nחלק "+i+" = "+count[i]+"  מתחיל ב: "+v[i].substring(0,v[i].length)+" אורך הקטע: "+v[i].length;
+					output+="\nחלק "+(i+1)+" =\t"+count[i]+"\t מתחיל ב: "+v[i].substring(0,40).replace(/\n/g,"   ")+"...\tאורך הקטע: "+v[i].length+"\n";
+					else output+="\nחלק "+(i+1)+" =\t"+count[i]+"\t מתחיל ב: "+v[i].substring(0,v[i].length).replace(/\n/g,"   ")+"...\tאורך הקטע: "+v[i].length+"\n";
 					}
 					document.getElementById("output").value=output;
 					document.getElementById("output").cols="100";
