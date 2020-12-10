@@ -1,14 +1,17 @@
 <html>
-<body align="center" dir="rtl" style="font-family:'Narkisim'" text-size="20">
-שם:  <input type="text" id="name"><br>
-<button onclick="update()">לקבלת קישור</button>
+<body align="center" dir="rtl" style="font-family:'Arial';">
 <br>
-  <div id="name"></div>
+<br>
+<br>
+שם:  <input type="text" id="name"><br><br>
+<button onclick="update()">לקבלת קישור</button>
+<br><br>
+  <div id="write"></div>
 </body>
 </html>
 <script>
-  update(){
-var name = document.getElementById("name").replace(" ","+");
+  function update(){
+var name = document.getElementById("name").value.replace(" ","+");
 document.getElementById("write").innerHTML = "https://docs.google.com/forms/d/e/1FAIpQLSdhhgUl5-4rHu9Qq17TEP9Xuf4cT2VL6mw4K_78eUKUyTgr6A/viewform?entry.1796384567="+name;
   }
 </script>
