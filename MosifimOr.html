@@ -8,5 +8,7 @@
 </body>
 </html>
 <script>
-document.getElementById("write").innerHTML = "https://docs.google.com/forms/d/e/1FAIpQLSdhhgUl5-4rHu9Qq17TEP9Xuf4cT2VL6mw4K_78eUKUyTgr6A/viewform?entry.1796384567="+document.getElementById("name");
+var name = document.getElementById("name").replace(" ","+");
+  
+document.getElementById("write").innerHTML = "https://docs.google.com/forms/d/e/1FAIpQLSdhhgUl5-4rHu9Qq17TEP9Xuf4cT2VL6mw4K_78eUKUyTgr6A/viewform?entry.1796384567="+name;
 </script>
